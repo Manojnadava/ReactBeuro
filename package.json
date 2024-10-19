@@ -1,7 +1,7 @@
 {
   "name": "react_d1",
   "version": "1.0.0",
-  "description": "This react project",
+  "description": "This react projectt",
   "scripts": {
     "start": "parcel inception.html",
     "build": "parcel build inception.html",
