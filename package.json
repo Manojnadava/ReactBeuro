@@ -1,0 +1,32 @@
+{
+  "name": "react_d1",
+  "version": "1.0.0",
+  "description": "This react project",
+  "scripts": {
+    "start": "parcel inception.html",
+    "build": "parcel build inception.html",
+    "test": "just"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manojnadava/ReactBeuro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manojnadava/ReactBeuro/issues"
+  },
+  "homepage": "https://github.com/Manojnadava/ReactBeuro#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react_d1": "file:",
+    "react-dom": "^18.3.1"
+  },
+  "browserslist": [
+    "last  90  versions"
+  ]
+}
