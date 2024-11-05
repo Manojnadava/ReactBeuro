@@ -1,67 +1,106 @@
+/* Html components req for food app
+1.Header section
+Logo 
+Nav items
+
+2. body
+ search b utton
+ Conatiner(items)
+   Cards - contasins items info-rest name , price, couisne , rating
+
+3.Footer
+  Copyright
+  address
+
+
+
+*/
+const resData=require('./data');
+
+const styleCard={
+    backgroundColor:"#7eadc0"
+}
+const Header=()=>{
+    return (
+        <div className="header">
+            <div className='logo'>
+                <img  className="img" src="https://static.vecteezy.com/system/resources/previews/011/468/885/non_2x/food-logo-spoon-fork-icon-illustration-symbol-for-fast-delivery-app-restaurant-template-free-vector.jpg"/>
+            </div>
+            <div className="nav">
+              <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Conatct</li>
+                <li>Cart</li>
+              </ul>
+            </div>
+
+        </div>
+    )
+}
+const CardItems=(prop)=>{
+    console.log(prop);
+
+    ///console.log(JSON.stringify(prop[2].card, null, 2));
+   if ( prop.item.card.info.imageId==undefined){
+    prop.item.card.info.imageId='';
+    }
+   const  {name,category,price,description,imageId}= prop.item.card.info;
+
+   if(prop.item.card.info.imageId==''){
+     path="https://c8.alamy.com/comp/2HBWP1Y/popular-india-food-mughlai-biryani-in-the-restaurant-2HBWP1Y.jpg";
+   }
+   else{
+     path="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_292,h_300/"
+   }
+
+  return(
+    <div className="item" style={styleCard}>
+        <img className="itemimage" alt="item" src={path+imageId}/>
+        <h3> {name}</h3>
+        <h4> {description}</h4>
+        <h4> {category.join(',')}</h4>
+        
+        <h4> {price}</h4>
+ </div>
+  )
+}
+
+const Body=()=>{
+    return(
+        <div className="body">
+            <div className="search"> Search </div>
+            <div className='item-container'>
+           
+            {
+             resData.map(item=>{
+              //const key =;
+                return <CardItems item={item} key= {item.card.info.id}/>;
+                
+             })   
+            
+            }
+           
+           </div>
+
+
+        </div>
+    )
+}
+
+const AppLayout=()=>{
+    return (
+        <div className="app">
+            <Header />
+            <Body />
+
+        </div>
+    )
+}
 
 const React=require('react');
 const ReactDOM=require('react-dom/client') ;
-//import React from 'react' ;
-//import ReactDOM  from 'react-dom';
-//react.createElement is object =>renderd html ele
-const heading =React.createElement('h1',{id:'heading'},"Namasthe react");
-console.log(heading);
+
+
 const root=ReactDOM.createRoot(document.getElementById('root'));
-root.render(heading); //thids rendering react element only not components
-
-const ele=<span> Nesting react ele inside react ele</span>
-//Need o use JSX esasier to create recat elemet instead of object prototype and it is not htnl in JS it is a html like structure
-//const jsxheading=`<h1 id='heading'> Namaste React using JSX</h1>`;
-const jsxheading=(
-    <h1 className='heading' tabIndex='0'> 
-    {ele}
-    <HeadingComponentt3 />
-
-    Namaste React using  functional component JSX
-    </h1>
-); // this jsxheading becoes react ele or obj
-
-console.log(jsxheading);
-
-root.render(jsxheading);
-//JSX is transpiled or converted to virtual dom for react from parcel through babel
-//JSX code=> React.createElement => Js object virtual Dom => HTML DOM
-
-
-//React Components
-//class based componernts and functional components as we create based on 2 ways
-const num=1000;
-const xss= "<script>alert('XSS');</script>";
-
-const HeadingComponent=() =>{
-    return <h1 className='heading' tabIndex='0'> 
-    Namaste React using JSX
-    </h1>;  //this will return jsx ele when called or renderd or js function which returns react element
-}
-
-const HeadingComponentt=() =>{
-    ( <div>
-        <h1 className='heading' tabIndex='0'> Namaste React using JSX func comp
-        </h1>
-    </div>
-    )   //this will return jsx ele when called or renderd or js function which returns react element
-}
-
-var HeadingComponentt3=() =>
-    ( <div>
-        <Title />  //this is called component composition
-        <h2> {num+2} </h2> //curly to include js code
-        {jsxheading}
-        {  HeadingComponent()}//calling functional component
-        <h1 className='heading' tabIndex='0'> Namaste React using JSX
-        </h1>
-    </div>
-    )   //this will return jsx ele when called or renderd or js function which returns react element
-// all syntaxess are same
-
-
-const Title=()=> {
-    return <h1>Hello bvc </h1>
-}
-
-root.render(jsxheading); //calling ele
+root.render(<AppLayout />);
