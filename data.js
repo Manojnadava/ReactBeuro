@@ -19,7 +19,11 @@ const itemCards= [
     itemBadge: { },
     badgesV2: { },
     ratings: {
-    aggregatedRating: { }
+    aggregatedRating: { 
+    rating: "5.0",
+    ratingCount: "22 ratings",
+    ratingCountV2: "22"
+    }
     }
     },
     analytics: { },
