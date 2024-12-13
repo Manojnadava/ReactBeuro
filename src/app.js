@@ -15,24 +15,62 @@ Nav items
 
 
 */
+
+const React=require('react');
+const ReactDOM=require('react-dom/client') ;
+
 const Header=require('./components/header');
 const Body=require('./components/body');
-
+import {createBrowserRouter,RouterProvider,Outlet} from 'react-router-dom';
+import { About } from './components/About';
+import Contact from './components/Contact';
+import { Error } from './components/Error';
+import RestaurantMenu from './components/RestaurantMenu';
+// here RouterProvider  is a component provided by router where component is loaded based on roting
 const AppLayout=()=>{
   
     return (
         <div className="app">
             <Header />
-            <Body />
-            {console.log(<Body />)}
+            <Outlet />
+            {console.log(<Outlet />)}
 
         </div>
     )
 }
 
-const React=require('react');
-const ReactDOM=require('react-dom/client') ;
+const appRouter=createBrowserRouter([
+  {
+    path:'/',
+    element:<AppLayout/>,
+    children:[
+      {
+        path:'/',
+        element:<Body/>,
+       
+      },
+      {
+        path:'/about',
+        element:<About/>,
+       
+      },
+      {
+        path:'/restaurants/:resid',
+        element:<RestaurantMenu/>
+      }
+
+    ],
+    errorElement:<Error/>
+   
+  },
+  
+
+])
+
 
 
 const root=ReactDOM.createRoot(document.getElementById('root'));
-root.render(<AppLayout />);
+//root.render(<AppLayout />);
+
+
+root.render(<RouterProvider router={appRouter} />);

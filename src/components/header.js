@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import {logo} from '../util/config'; // './' refres same directory or sub '../' refers 2 levels up
+import { Link } from 'react-router-dom';
 
 
 const Header=()=>{
@@ -18,9 +19,9 @@ const Header=()=>{
             </div>
             <div className="nav">
               <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Conatct</li>
+                <li><Link to='/'> Home </Link></li>
+                <li><a href='/about'> About</a></li>
+                <li><Link to='/contact'> Contact </Link></li>
                 <li>Cart</li>
                 <button onClick={()=>{
                   state();

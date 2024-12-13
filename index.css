@@ -36,7 +36,7 @@
     justify-content:start;
     flex-direction: row;
     align-content: space-between;
-    height: auto;
+    height: 80vh;
     width:auto;
     align-items: center;
     overflow-y: scroll;
@@ -82,3 +82,50 @@
 .filter{
     display:flex ;
 }
+
+.rest{
+    width:auto;
+    height:auto;
+    border: solid 1px rgb(45, 123, 175);
+    padding: 5px;
+    margin: 10px 5px;
+    background-color: antiquewhite;
+}
+
+.menus {
+    display: flex; /* Change block to flex for side-by-side layout */
+    flex-direction: row; /* Align the description and image horizontally */
+    justify-content: start; /* Add space between the description and image */
+    align-items: center; /* Align the content vertically */
+    width: 100%; /* Ensure it spans the container width */
+    height: auto; /* Adjust height dynamically */
+    margin: 10px 0px; /* Add spacing between each restaurant */
+    padding: 10px; /* Add internal spacing */
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    background-color: #f9f9f9; /* Add background color for better differentiation */
+}
+
+.menudes {
+    flex: 2; /* Allow the description to take more space */
+    padding-right: 10px; /* Add some spacing between description and image */
+    align-content: center;
+}
+
+.menuimage {
+    flex: 1; /* Make the image container smaller */
+    text-align: center; /* Center-align the image */
+}
+
+.menuimage img {
+    max-width: 100%; /* Ensure the image fits the container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional: Rounded corners */
+}
+.user-info {
+    height: fit-content;
+    width: auto;
+    padding: 10px;
+    border: 1px solid bisque;
+}
+
+
