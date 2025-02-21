@@ -1,8 +1,9 @@
 const styleCard={
     backgroundColor:"grey"
 }
+let path;
 
-export const CardItems=(prop)=>{
+export const CardItems=(prop)=>{  //this cardItem is one react componet in form of func
    // console.log(prop);
 
     ///console.log(JSON.stringify(prop[2].card, null, 2));
@@ -19,16 +20,29 @@ export const CardItems=(prop)=>{
    }
 
   return(
-    <div className="item" style={styleCard}>
-        <img className="itemimage" alt="item" src={path+cloudinaryImageId}/>
-        <h3> {name}</h3>
-        <h4> {costForTwoMessage}</h4>
-        <h4> {cuisines.join(',')}</h4>
+    <div className="p-2 m-5 w-[300px] h-auto rounded-xl bg-gray-50 hover:bg-gray-400 overflow-hidden" data-testid='resCard' >
+        <img className="rounded-lg w-full h-64 py-3 object-cover " alt="item" src={path+cloudinaryImageId}/>
+        <h3 className="text-lg font-bold py-3 break-words"> {name}</h3>
+        <h4 className="break-words"> {costForTwoMessage}</h4>
+        <h4 className="break-words"> {cuisines.join(',')}</h4>
         
         <h4> {avgRating}</h4>
  </div>
   )
 }
+ 
+export const productLabel= (CardItems)=>{
+ return (props)=>{
+  console.log(props);
+  return(
+    <div>
+      <label>Promted</label>
+      <CardItems {...props} />
+    </div>
+    
+  )
+  
+ }
+}
 
-
-module.exports= CardItems;
+//module.exports= CardItems;

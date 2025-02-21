@@ -1,4 +1,4 @@
-const itemCards= [
+export const itemCards= [
     
     {
     card: {

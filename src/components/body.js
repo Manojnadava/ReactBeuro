@@ -1,11 +1,13 @@
-const { useEffect } = require('react');
+const { useEffect, useContext } = require('react');
 const resData=require('../../data');
-const CardItems=require('./CardItem');
+import {CardItems,productLabel} from './CardItem'; // here productLabel is a just function which when we call will return a react componet or jsx fun
 const useState=require('react').useState;
 const Shimmer=require('./shimmer');
 let link;
 //const { Link } = require('react-router-dom');
 import { Link } from 'react-router-dom';
+import UserContext from '../util/UserContext';
+import { itemCards } from '../../data';
 
 let globalresp=[];
 
@@ -14,7 +16,7 @@ const Body = () => {
   const [resDataa, setResDataa] = useState([]);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  
+  const {loggedInUser,setUser}=useContext(UserContext);
   useEffect(() => {
     console.log('useEffect called with page:', page);
     fetchData(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.8579593&lng=74.8404784&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`);
@@ -33,8 +35,11 @@ const Body = () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
+      console.log('raw data ')
+      console.log(data);
       const newRestaurants = data.data.cards[4].card.card.gridElements.infoWithStyle.restaurants || [];
       globalresp = [...globalresp, ...newRestaurants];
+      //console.log(newRestaurants)
       setResDataa(globalresp);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -44,27 +49,27 @@ const Body = () => {
   console.log('Body component loaded');
 
  // window.addEventListener('scroll', handleScroll);
+ const EnhansedComp=productLabel(CardItems); // it will return a enhansed jsx comp
  
-
+console.log('Returned')
   return resDataa.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="filter">
+    <div className="">
+      <div className="filter flex px-2 m-5">
         <button
-          className="filter-button"
+          className="bg-[blue] px-0 mx-2 rounded-lg w-56"
           onClick={() => {
-            const toprated = resDataa.filter((item) => item.card.card.info.avgRating > '3.7');
+            const toprated = resDataa.filter((item) => item.info.avgRating > '4.4');
             setResDataa(toprated);
           }}
         >
           Top rated restaurant
         </button>
-
-        <div>
           <div>
             <input
-              className="Search"
+              className="border-2 border-solid border-blue-50"
+              data-testid='search'
               value={search}
               onInput={(e) => {
                 setSearch(e.target.value);
@@ -73,7 +78,7 @@ const Body = () => {
             <button
               onClick={() => {
                 const newres = globalresp.filter((item) =>
-                  item.card.card.info.name.toLowerCase().includes(search.toLowerCase())
+                  item.info.name.toLowerCase().includes(search.toLowerCase())
                 );
                 setResDataa(newres.length > 0 ? newres : globalresp);
               }}
@@ -81,9 +86,15 @@ const Body = () => {
               Submit
             </button>
           </div>
-        </div>
+          <div className="border-2 border-solid border-blue-50">
+            <input  value={loggedInUser} onInput={(e)=>{
+              user=e.target.value;
+              setUser(user);
+            }}/>
+          </div>
+        
       </div>
-      <div className="item-container" onScroll={(e)=>{
+      <div className=" flex flex-wrap justify-start items-center p-5 m-5 h-full overflow-y-scroll" onScroll={(e)=>{
         console.log('MPN');
         const { scrollTop, clientHeight, scrollHeight } = e.target;
         if (scrollTop + clientHeight >= scrollHeight - 40) {
@@ -93,10 +104,16 @@ const Body = () => {
 
       }}>
         
-        {resDataa.map((item,index) => (
-           link=`/restaurants/${item.info.id}`,
-         <Link to={link} key={`${item.info.id}-${index}`}> <CardItems item={item}  /></Link> 
-        ))}
+        {resDataa.map((item,index) => {
+          console.log(item);
+          const link=`/restaurants/${item.info.id}`;
+          return(  // returning jsx
+            <Link to={link} key={`${item.info.id}-${index}`}>
+            { (item.info.avgRating>4.45) ?  <EnhansedComp item={item}  />: <CardItems item={item}  />}
+             </Link> 
+          )
+        
+        })}
       </div>
     </div>
   );
