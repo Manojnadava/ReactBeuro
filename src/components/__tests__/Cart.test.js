@@ -53,7 +53,11 @@ test('testing loading menu items ',async ()=>{
 
    expect(screen.getAllByTestId('menus').length).toBe(4);// checking whether added menu present in cart page or not
 
+//diff between getByText and findByText
+//getByText immediately searches for an element synchronously.
+   fireEvent.click(screen.getByRole('button',{name:'remove'}));
+   expect(screen.getAllByTestId('menus').length).toBe(3);
 
-
+   
 
 })
